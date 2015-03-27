@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  sudo: no
+  vars:
+    my_home: "/Users/{{ lookup('env','USER') }}"
+    rvm1_install_path: "{{ my_home }}/.rvm"
+    rvm1_install_flags: '--auto-dotfiles --user-install'
+    rvm1_user: "{{ lookup('env','USER') }}"
+
+  roles:
+    - role: common
+    - role: rvm_io.rvm1-ruby
+    - role: bonusbox
+ 
+  tasks:
+    - homebrew:
+        name: emacs
+        state: latest
+      tags: emacs
+    - name: "download my emacs git repository to .emacs.d"
+      git:
+        repo: "git@github.com:riethmayer/emacs.git"
+        dest: "{{ my_home }}/.emacs.d"
+      tags: emacs
