@@ -15,26 +15,27 @@ set -e
 #       * check to see if gcc binary even exists ( original logic )
 # if either of the conditions are met, install dev tools
 if [[ $(/usr/bin/gcc 2>&1) =~ "no developer tools were found" ]] || [[ ! -x /usr/bin/gcc ]]; then
-    echo "Info   | Install   | xcode"
+    echo "checking for xcode"
     xcode-select --install
 fi
 
 # Download and install Homebrew
 if [[ ! -x /usr/local/bin/brew ]]; then
-    echo "Info   | Install   | homebrew"
+    echo "ensure homebrew installed"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
 fi
 
 
 # Download and install Ansible
-if [[ ! -x /usr/local/bin/ansible ]]; then
-    echo "Info   | Install   | Ansible"
-    brew update
-    brew install ansible
+if [[ ! -d $HOME/github/ansible ]]; then
+  echo "ensure ansible is present and setup"
+  git clone git://github.com/ansible/ansible.git --recursive $HOME/github/ansible
+  cd $HOME/github/ansible
+  source ./hacking/env-setup
 fi
 
 # Modify the PATH
 # This should be subsequently updated in shell settings
 export PATH=/usr/local/bin:$PATH
 
-# ansible-playbook local.yml -K
+# ansible-playbook riethmayer.yml -K
