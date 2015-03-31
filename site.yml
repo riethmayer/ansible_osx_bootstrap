@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  sudo: no
+  vars:
+    my_home: "{{ lookup('env','HOME') }}"
+    rvm1_install_path: "{{ my_home }}/.rvm"
+    rvm1_install_flags: '--auto-dotfiles --user-install'
+    rvm1_user: "{{ lookup('env','USER') }}"
+
+  roles:
+    - role: common
+    - role: rvm_io.rvm1-ruby
+
+  tasks:
+    - name: install binaries
+      homebrew_cask:
+        name: "{{ item }}"
+        state: present
+      tags: binaries
+      with_items:
+        - dropbox
+        - firefox
+        - flash-player
+        - flowdock
+        - google-chrome
+        - silverlight
+        - sketch
+        - skype
+        - spotify

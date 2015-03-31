@@ -10,6 +10,8 @@ Ansible managed development environment + binaries.
 
 ## Run your ansible-playbook
 
+Here's a very basic one:
+
 ```
-ansible-playbook riethmayer.yml
+ansible-playbook site.yml
 ```
