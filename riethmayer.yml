@@ -79,3 +79,25 @@
         accept_hostkey: yes
       tags: bash
 
+    - name: install binaries
+      homebrew_cask:
+        name: "{{ item }}"
+        state: present
+      tags: binaries
+      with_items:
+        - dropbox
+        - evernote
+        - firefox
+        - flash-player
+        - flowdock
+        - google-chrome
+        - iterm2
+        - opera
+        - screenhero
+        - silverlight
+        - sketch
+        - skype
+        - spotify
+        - vagrant
+        - virtualbox
+        - vlc
