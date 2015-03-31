@@ -2,8 +2,14 @@
 
 Ansible managed development environment + binaries.
 
-## Usage
+## Install homebrew and ansible first
 
 ```
 ./bootstrap.sh
+```
+
+## Run your ansible-playbook
+
+```
+ansible-playbook riethmayer.yml
 ```
