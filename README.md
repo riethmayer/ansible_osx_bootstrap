@@ -1,7 +1,9 @@
 # osx-bootstrap
 
+Ansible managed development environment + binaries.
+
 ## Usage
 
 ```
-ansible-playbook main.yml
+./bootstrap.sh
 ```
