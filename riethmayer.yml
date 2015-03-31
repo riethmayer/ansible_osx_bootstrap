@@ -4,7 +4,7 @@
   gather_facts: no
   sudo: no
   vars:
-    my_home: "/Users/{{ lookup('env','USER') }}"
+    my_home: "{{ lookup('env','HOME') }}"
     rvm1_install_path: "{{ my_home }}/.rvm"
     rvm1_install_flags: '--auto-dotfiles --user-install'
     rvm1_user: "{{ lookup('env','USER') }}"
@@ -13,14 +13,69 @@
     - role: common
     - role: rvm_io.rvm1-ruby
     - role: bonusbox
- 
+
   tasks:
-    - homebrew:
-        name: emacs
+    - name: install my homebrew setup
+      homebrew:
+        name: "{{ item }}"
         state: latest
-      tags: emacs
+      tags: brew
+      with_items:
+        - emacs
+        - reattach-to-user-namespace
+
     - name: "download my emacs git repository to .emacs.d"
       git:
         repo: "git@github.com:riethmayer/emacs.git"
         dest: "{{ my_home }}/.emacs.d"
+        accept_hostkey: yes
       tags: emacs
+
+    - name: setup src directory
+      file:
+        path: "{{ my_home }}/src"
+        state: directory
+      tags: bash
+
+    - name: setup github directory
+      file:
+        path: "{{ my_home }}/github"
+        state: directory
+      tags: bash
+
+    - name: setup bonusbox directory
+      file:
+        path: "{{ my_home }}/bonusbox/projects"
+        state: directory
+      tags: bash
+
+    - name: download dotfiles
+      git:
+        repo: "git@github.com:riethmayer/dotfiles.git"
+        dest: "{{ my_home }}/src/dotfiles"
+        accept_hostkey: yes
+      tags: bash
+
+    - name: symlink files
+      file:
+        src: "{{ my_home }}/src/dotfiles/{{ item }}"
+        dest: "{{ my_home }}/.{{ item }}"
+      with_items:
+        - gemrc
+        - gitconfig
+        - tmux.conf
+      tags: bash
+
+    - name: symlink bin directory
+      file:
+        src: "{{ my_home }}/src/dotfiles/bin"
+        dest: "{{ my_home }}/bin"
+      tags: bash
+
+    - name: download my secrets
+      git:
+        repo: "git@bitbucket.com:riethmayer/secret.git"
+        dest: "{{ my_home }}/src/secret"
+        accept_hostkey: yes
+      tags: bash
+
