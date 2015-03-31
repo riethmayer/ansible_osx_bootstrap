@@ -38,5 +38,3 @@ fi
 # This should be subsequently updated in shell settings
 export PATH=/usr/local/bin:$PATH
 
-cd -
-ansible-playbook riethmayer.yml
