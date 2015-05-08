@@ -15,6 +15,16 @@
     - role: bonusbox
 
   tasks:
+    - name: symlink postgresql
+      file:
+        src: /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist
+        dest: "{{ my_home }}/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+        state: link
+      tags: postgres
+
+    - name: start postgres
+      shell: "launchctl load {{ my_home }}/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+
     - name: install my homebrew setup
       homebrew:
         name: "{{ item }}"
@@ -60,6 +70,7 @@
       file:
         src: "{{ my_home }}/src/dotfiles/{{ item }}"
         dest: "{{ my_home }}/.{{ item }}"
+        state: link
       with_items:
         - gemrc
         - gitconfig
@@ -70,6 +81,14 @@
       file:
         src: "{{ my_home }}/src/dotfiles/bin"
         dest: "{{ my_home }}/bin"
+        state: link
+      tags: bash
+
+    - name: symlink gls to ls
+      file:
+        src: /usr/local/bin/gls
+        dest: /usr/local/bin/ls
+        state: link
       tags: bash
 
     - name: download my secrets
