@@ -13,5 +13,6 @@ Ansible managed development environment + binaries.
 Here's a very basic one:
 
 ```
-ansible-playbook site.yml
+./bootstrap.sh
+ansible-playbook main.yml
 ```
