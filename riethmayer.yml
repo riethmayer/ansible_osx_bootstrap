@@ -126,3 +126,9 @@
         name: hub
         state: latest
       tags: homebrew
+
+    - name: Install mactex
+      homebrew_cask:
+        name: mactex
+        state: present
+      tags: latex
