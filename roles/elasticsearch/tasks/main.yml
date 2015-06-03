@@ -1,4 +1,6 @@
 ---
  - name: Install elasticsearch
    homebrew: name=elasticsearch state=latest
-   tags: elasticsearch
+   tags:
+     - elasticsearch
+     - java
