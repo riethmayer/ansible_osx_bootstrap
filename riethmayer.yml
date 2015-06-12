@@ -66,7 +66,7 @@
         accept_hostkey: yes
       tags: bash
 
-    - name: symlink files
+    - name: symlink tool config files
       file:
         src: "{{ my_home }}/src/dotfiles/{{ item }}"
         dest: "{{ my_home }}/.{{ item }}"
@@ -75,6 +75,16 @@
         - gemrc
         - gitconfig
         - tmux.conf
+      tags: bash
+
+    - name: symlink files
+      file:
+        src: "{{ my_home }}/src/dotfiles/bash/{{ item }}"
+        dest: "{{ my_home }}/.{{ item }}"
+        state: link
+      with_items:
+        - bash_profile
+        - profile
       tags: bash
 
     - name: symlink bin directory
