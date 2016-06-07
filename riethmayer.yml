@@ -128,16 +128,9 @@
         - spotify
         - vagrant
         - vlc
-# - virtualbox doesn't work at the moment, nvm
 
     - name: Install hub
       homebrew:
         name: hub
         state: latest
       tags: homebrew
-
-# no need for latex at the moment    - name: Install mactex
-# no need for latex at the moment      homebrew_cask:
-# no need for latex at the moment        name: mactex
-# no need for latex at the moment        state: present
-# no need for latex at the moment      tags: latex  
