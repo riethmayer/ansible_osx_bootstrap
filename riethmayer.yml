@@ -136,8 +136,8 @@
         state: latest
       tags: homebrew
 
-    - name: Install mactex
-      homebrew_cask:
-        name: mactex
-        state: present
-      tags: latex
+# no need for latex at the moment    - name: Install mactex
+# no need for latex at the moment      homebrew_cask:
+# no need for latex at the moment        name: mactex
+# no need for latex at the moment        state: present
+# no need for latex at the moment      tags: latex  
