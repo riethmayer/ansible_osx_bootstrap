@@ -127,8 +127,8 @@
         - skype
         - spotify
         - vagrant
-        - virtualbox
         - vlc
+# - virtualbox doesn't work at the moment, nvm
 
     - name: Install hub
       homebrew:
