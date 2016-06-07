@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-  sudo: no
+  become: no
   vars:
     my_home: "{{ lookup('env','HOME') }}"
     rvm1_install_path: "{{ my_home }}/.rvm"
