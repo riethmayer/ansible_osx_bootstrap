@@ -12,34 +12,23 @@
   roles:
     - role: common
     - role: rvm_io.rvm1-ruby
-    - role: bonusbox
 
   tasks:
-    - name: symlink postgresql
-      file:
-        src: /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist
-        dest: "{{ my_home }}/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-        state: link
-      tags: postgres
-
-    - name: start postgres
-      shell: "launchctl load {{ my_home }}/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-
     - name: install my homebrew setup
       homebrew:
         name: "{{ item }}"
         state: latest
       tags: brew
       with_items:
-        - emacs
+        - coreutils
         - reattach-to-user-namespace
+        - hub
 
-    - name: "download my emacs git repository to .emacs.d"
+    - name: install spacemacs
       git:
-        repo: "git@github.com:riethmayer/emacs.git"
+        repo: "git@github.com:syl20bnr/spacemacs.git"
         dest: "{{ my_home }}/.emacs.d"
         accept_hostkey: yes
-      tags: emacs
 
     - name: setup src directory
       file:
@@ -50,12 +39,6 @@
     - name: setup github directory
       file:
         path: "{{ my_home }}/github"
-        state: directory
-      tags: bash
-
-    - name: setup bonusbox directory
-      file:
-        path: "{{ my_home }}/bonusbox/projects"
         state: directory
       tags: bash
 
@@ -75,6 +58,7 @@
         - gemrc
         - gitconfig
         - tmux.conf
+        - spacemacs
       tags: bash
 
     - name: symlink bash_profile
@@ -102,7 +86,7 @@
 
     - name: download my secrets
       git:
-        repo: "git@bitbucket.com:riethmayer/secret.git"
+        repo: "git@github.com:riethmayer/secret.git"
         dest: "{{ my_home }}/src/secret"
         accept_hostkey: yes
       tags: bash
@@ -113,24 +97,8 @@
         state: present
       tags: binaries
       with_items:
-        - dropbox
-        - evernote
         - firefox
         - flash-player
-        - flowdock
         - google-chrome
-        - iterm2
         - opera
-        - screenhero
-        - silverlight
-        - sketch
-        - skype
-        - spotify
-        - vagrant
         - vlc
-
-    - name: Install hub
-      homebrew:
-        name: hub
-        state: latest
-      tags: homebrew

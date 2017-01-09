@@ -9,7 +9,11 @@
    homebrew_tap:
      tap: "{{ item }}"
      state: present
-   with_items: homebrew_taps
+   with_items:
+     - homebrew/completions
+     - homebrew/core
+     - homebrew/python
+     - homebrew/science
    tags: homebrew
 
  - name: Install packages
@@ -17,5 +21,21 @@
      name: "{{ item.name }}"
      state: latest
      install_options: "{{ item.install_options|default() }}"
-   with_items: homebrew_packages
+   with_items:
+     - { name: git }
+     - { name: tmux }
+     - { name: tree }
+     - { name: pkgconfig }
+     - { name: python }
+     - { name: pstree }
+     - { name: ack }
+     - { name: gpg }
+     - { name: jq }
+     - { name: coreutils }
+     - { name: nmap }
+     - { name: heroku-toolbelt }
+     - { name: wget,
+         install_options: enable-iri }
+     - { name: openssl }
+     - { name: llvm }
    tags: homebrew
