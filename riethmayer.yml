@@ -147,10 +147,11 @@
         dest: "{{ my_home }}/.{{ item }}"
         state: link
       with_items:
+        - eslintrc
         - gemrc
         - gitconfig
+        - jsbeautifyrc
         - tmux.conf
-        - spacemacs
       tags: bash
 
     - name: symlink bash_profile
