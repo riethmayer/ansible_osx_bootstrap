@@ -14,114 +14,6 @@
     - role: rvm_io.rvm1-ruby
 
   tasks:
-    - name: install my homebrew setup
-      homebrew:
-        name: "{{ item }}"
-        state: latest
-      tags: brew
-      with_items:
-        - ack
-        - ansible
-        - autoconf
-        - automake
-        - awscli
-        - bash
-        - cairo
-        - chromedriver
-        - cloc
-        - colordiff
-        - coreutils
-        - couchdb
-        - direnv
-        - elasticsearch
-        - elixir
-        - emacs
-        - erlang
-        - fontconfig
-        - freetype
-        - gcc
-        - gd
-        - gdbm
-        - gettext
-        - git
-        - glib
-        - gmp
-        - gnupg
-        - gnuplot
-        - go
-        - graphviz
-        - heroku
-        - heroku-toolbelt
-        - hub
-        - icu4c
-        - imagemagick
-        - isl
-        - jpeg
-        - jq
-        - kubernetes-helm
-        - leiningen
-        - libevent
-        - libffi
-        - libgpg-error
-        - libidn
-        - libksba
-        - libmpc
-        - libpng
-        - libtiff
-        - libtool
-        - libyaml
-        - llvm
-        - lua
-        - markdown
-        - mercurial
-        - mpfr
-        - mysql
-        - nmap
-        - node
-        - nspr
-        - oniguruma
-        - openssl
-        - openssl@1.1
-        - pcre
-        - perl
-        - pixman
-        - pkg-config
-        - postgresql
-        - pstree
-        - python
-        - qt
-        - r
-        - rabbitmq
-        - rbenv
-        - readline
-        - reattach-to-user-namespace
-        - redis
-        - ruby
-        - ruby-build
-        - selenium-server-standalone
-        - spidermonkey
-        - sqlite
-        - the_silver_searcher
-        - tmux
-        - tree
-        - unixodbc
-        - vim
-        - watch
-        - watchman
-        - webp
-        - wget
-        - wxmac
-        - xz
-        - yarn
-        - zsh
-        - zsh-completions
-
-    - name: install spacemacs
-      git:
-        repo: "git@github.com:syl20bnr/spacemacs.git"
-        dest: "{{ my_home }}/.emacs.d"
-        accept_hostkey: yes
-
     - name: setup src directory
       file:
         path: "{{ my_home }}/src"
@@ -195,3 +87,114 @@
         - google-chrome
         - opera
         - vlc
+
+    - name: install basic command line tools
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      tags: brewd
+      with_items:
+        - { name: ack }
+        - { name: emacs }
+        - { name: git }
+        - { name: mercurial }
+        - { name: hub }
+        - { name: jq }
+        - { name: lua }
+        - { name: markdown }
+        - { name: reattach-to-user-namespace }
+        - { name: the_silver_searcher }
+        - { name: watch }
+        - { name: wget }
+        - { name: tmux }
+        - { name: tree }
+        - { name: bash }
+        - { name: cairo }
+        - { name: colordiff }
+        - { name: coreutils }
+        - { name: direnv }
+        # - { name: r } installation takes forever
+    - name: js tools
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      tags: brew
+      with_items:
+        - { name: node }
+        - { name: yarn }
+
+    - name: install make tools
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      tags: brew
+      with_items:
+        - { name: autoconf }
+        - { name: automake }
+        - { name: gcc }
+        - { name: gdbm }
+        - { name: libevent }
+        - { name: libffi }
+        - { name: libgpg-error }
+        - { name: libidn }
+        - { name: libksba }
+        - { name: libmpc }
+        - { name: libpng }
+        - { name: libtiff }
+        - { name: libtool }
+        - { name: libyaml }
+        - { name: llvm }
+        - { name: openssl }
+        - { name: openssl@1.1 }
+        - { name: qt }
+        - { name: readline }
+
+    - name: install elixir development tools
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      tags: brew
+      with_items:
+        - { name: elixir }
+        - { name: erlang }
+
+    - name: install generic development tools
+      tags: brew
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      with_items:
+        - { name: chromedriver }
+        - { name: cloc }
+        - { name: fontconfig }
+        - { name: freetype }
+        - { name: gettext }
+        - { name: glib }
+        - { name: gmp }
+        - { name: gnupg }
+        - { name: icu4c }
+        - { name: isl }
+
+    - name: install image tools
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      tags: brew
+      with_items:
+        - { name: gd }
+        - { name: gnuplot }
+        - { name: graphviz }
+        - { name: imagemagick }
+        - { name: jpeg }
+        
+    - name: install devops tools
+      homebrew:
+        name: "{{ item.name }}"
+        state: latest
+      tags: brew
+      with_items:
+        - { name: awscli }
+        - { name: heroku }
+        - { name: heroku-toolbelt }
+        - { name: kubernetes-helm }
+
